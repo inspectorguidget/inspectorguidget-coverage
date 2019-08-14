@@ -7,35 +7,15 @@ public class Agent {
 
     public static void premain(String agentArgs, Instrumentation inst) {
         LOGGER.info("[Agent] In premain method");
+        String className = "TestMath";
 
-        String className = "Main";
-        transformClass(className,inst);
-    }
-
-
-    private static void transformClass(String className, Instrumentation instrumentation) {
-        Class<?> targetCls;
-        ClassLoader targetClassLoader;
-
-        try {
-            targetCls = Class.forName(className);
-            targetClassLoader = targetCls.getClassLoader();
-            transform(targetCls, targetClassLoader, instrumentation);
-            return;
-        } catch (Exception ex) {
-            LOGGER.severe("Class [{}] not found with Class.forName");
+        try{
+            Transformer transformer = new Transformer(className, Class.forName(className).getClassLoader());
+            inst.addTransformer(transformer);
+        }catch (Exception e){
+            LOGGER.warning("error loading class");
         }
-    }
 
-    private static void transform (Class<?> clazz, ClassLoader classLoader, Instrumentation inst){
-        MainTransformer mainTransformer = new MainTransformer(clazz.getName(), classLoader);
-        inst.addTransformer(mainTransformer, true);
-        try {
-            inst.retransformClasses(clazz);
-        } catch (Exception ex) {
-            throw new RuntimeException(
-                    "Transform failed for: [" + clazz.getName() + "]", ex);
-        }
     }
 
 }
