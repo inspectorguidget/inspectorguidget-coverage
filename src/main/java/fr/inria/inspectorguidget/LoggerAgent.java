@@ -8,6 +8,7 @@ public class LoggerAgent {
     private static Logger LOGGER = Logger.getLogger(LoggerAgent.class.getName());
 
     public static void premain(String agentArgs, Instrumentation inst) {
-        LOGGER.info("[Agent] In premain method");
+        System.out.println("TESTING AGENT WITH PRINTLN TO SEE IF IT'S LAUNCHED IN TEST PROJECT");
+        //LOGGER.info("[Agent] In premain method");
     }
 }
