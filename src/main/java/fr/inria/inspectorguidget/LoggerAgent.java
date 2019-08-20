@@ -22,7 +22,7 @@ public class LoggerAgent {
 
             LOGGER.info("[Agent] Agent in premain method");
 
-            SpoonClassFileTransformer transformer = new SpoonClassFileTransformer(new BinderTransformer(fh));
+            SpoonClassFileTransformer transformer = new SpoonClassFileTransformer(cl -> cl.startsWith("net.sf.latexdraw"), new BinderTransformer(fh));
             inst.addTransformer(transformer);
 
         } catch (Exception e ){
