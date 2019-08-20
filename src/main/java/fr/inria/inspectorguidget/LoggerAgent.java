@@ -19,20 +19,15 @@ public class LoggerAgent {
             fh.setFormatter(new SimpleFormatter());
             fh.setLevel(Level.ALL);
             LOGGER.addHandler(fh);
+
+            LOGGER.info("[Agent] Agent in premain method");
+
+            SpoonClassFileTransformer transformer = new SpoonClassFileTransformer(cl -> cl.startsWith(""), new BinderTransformer(fh));
+            inst.addTransformer(transformer);
+
         } catch (Exception e ){
             LOGGER.severe("can't log in file");
         }
-
-
-        LOGGER.info("[Agent] In premain method");
-
-        try {
-            SpoonClassFileTransformer transformer = new SpoonClassFileTransformer(cl -> cl.startsWith(""), new BinderTransformer());
-            inst.addTransformer(transformer);
-        } catch (Exception e) {
-            LOGGER.severe("can't build transformer");
-        }
-
 
         LOGGER.info("[Agent] Agent done");
     }

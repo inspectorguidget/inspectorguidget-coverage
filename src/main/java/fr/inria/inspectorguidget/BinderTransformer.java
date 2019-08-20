@@ -4,7 +4,6 @@ import spoon.decompiler.TypeTransformer;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtType;
 
-import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
@@ -12,8 +11,8 @@ public class BinderTransformer implements TypeTransformer {
 
     private Logger LOGGER = Logger.getLogger(BinderTransformer.class.getName());
 
-    public BinderTransformer() throws IOException {
-        LOGGER.addHandler(new FileHandler("AgentLogger.log"));
+    public BinderTransformer(FileHandler fh) {
+        LOGGER.addHandler(fh);
     }
 
     @Override
