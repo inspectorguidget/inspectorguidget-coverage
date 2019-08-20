@@ -1,8 +1,7 @@
 package fr.inria.inspectorguidget;
 
-import com.sun.jdi.event.ExceptionEvent;
+import spoon.decompiler.SpoonClassFileTransformer;
 
-import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -24,7 +23,18 @@ public class LoggerAgent {
             LOGGER.severe("can't log in file");
         }
 
+
         LOGGER.info("[Agent] In premain method");
+
+        try {
+            SpoonClassFileTransformer transformer = new SpoonClassFileTransformer(cl -> cl.startsWith(""), new BinderTransformer());
+            inst.addTransformer(transformer);
+        } catch (Exception e) {
+            LOGGER.severe("can't build transformer");
+        }
+
+
+        LOGGER.info("[Agent] Agent done");
     }
 }
 

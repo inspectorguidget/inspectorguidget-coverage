@@ -67,5 +67,22 @@
             <artifactId>javassist</artifactId>
             <version>3.12.1.GA</version>
         </dependency>
+
+        <dependency>
+            <groupId>fr.inria.gforge.spoon</groupId>
+            <artifactId>spoon-core</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
+        <!-- Add spoon-decompiler which is a local dep -->
+        <dependency>
+            <groupId>fr.inria.gforge.spoon</groupId>
+            <artifactId>spoon-decompiler</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>/home/lrichoux/.m2/repository/fr/inria/gforge/spoon/spoon-decompiler/0.1.0-SNAPSHOT/spoon-decompiler-0.1.0-SNAPSHOT.jar</systemPath>
+        </dependency>
+
     </dependencies>
+
 </project>
