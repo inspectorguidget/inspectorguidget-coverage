@@ -13,12 +13,13 @@ public class BinderTransformer implements TypeTransformer {
 
     public BinderTransformer(FileHandler fh) {
         LOGGER.addHandler(fh);
+        LOGGER.info("[Agent] building binder transformer");
     }
 
     @Override
     public boolean accept(CtType type) {
-
-        if ((type instanceof CtInvocation) && type.getSimpleName().endsWith("bind()")){
+        LOGGER.info("[Agent] checking type : " + type );
+        if ((type instanceof CtInvocation) && type.toString().endsWith("bind()")){
             return true;
         } else {
             return false;
@@ -29,7 +30,7 @@ public class BinderTransformer implements TypeTransformer {
     @Override
     public void transform(CtType type) {
         //TODO : add call .log(LogLevel.BINDING) before .bind()
-        LOGGER.info("Modifying invocation : " + type );
+        LOGGER.info("[Agent] Modifying invocation : " + type );
     }
 }
 
